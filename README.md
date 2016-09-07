@@ -2,10 +2,14 @@
 
 Cbreaker is a ruby gem that implements circuit breaker pattern as described in http://martinfowler.com/bliki/CircuitBreaker.html.
 
-Storage:
+###Storage:
 It comes with support for both in-memory and centralized storage.
+
 In distributed server setup you can prefer to use centralised storage option to make your service detect the failure asap.
-Currently only redis is being supported as centralized storage. However it is easy to integrate any other cache service. Check and implement methods in cbreaker/data_store/redis.  
+
+Currently only redis is being supported as centralized storage. However it is easy to integrate any other cache service.
+
+Check and implement methods in cbreaker/data_store/redis.  
 
 For error reporting/ notification it comes with new relic support. However other notification can easily be integrated in cbreaker/notifier/. Check cbreaker/notifier/newrelic for more details. 
 
@@ -28,22 +32,36 @@ Or install it yourself as:
 
 ## Usage
 
-#Configurations:
-Following parameters are configurable:
-failure_threshold, retry_timeout, timeout
-To enable new relic monitoring: 
-	cbreaker_options["monitoring"]: true
-To add extra params for monitoring:
-	cbreaker_options["monit_hash"]: {"app": "some app name", "endpoint": "app_name"}
-To add cbreaker log in your app, mention your app logger.
-    cbreaker_options["logger"]=app_logger
-To exclude the exceptions from opening the the circuit:
-    cbreaker_options["excluded_exceptions"] = ['exception1', 'exception2']
+###Configurations:
 
-#Execution:
+Following parameters are configurable:
+
+failure_threshold, retry_timeout, timeout
+
+To enable new relic monitoring: 
+
+	cbreaker_options["monitoring"]: true
+	
+To add extra params for monitoring:
+
+	cbreaker_options["monit_hash"]: {"app": "some app name", "endpoint": "app_name"}
+	
+To add cbreaker log in your app, mention your app logger.
+
+	cbreaker_options["logger"]=app_logger
+	
+To exclude the exceptions from opening the the circuit:
+
+	cbreaker_options["excluded_exceptions"] = ['exception1', 'exception2']
+
+###Execution:
+
 cbreaker = Cbreaker('cbreaker_name', cbreaker_options, $data_store)
+
 cbreaker.run do
-    #Code you want to wrap under circuit breaker 
+	
+	#Code you want to wrap under circuit breaker 
+	
 end
 
 Here in data_store you will have to provide the redis connection.
