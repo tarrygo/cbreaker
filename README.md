@@ -58,11 +58,9 @@ To exclude the exceptions from opening the the circuit:
 
 cbreaker = Cbreaker('cbreaker_name', cbreaker_options, $data_store)
 
-cbreaker.run do
-	
-	#Code you want to wrap under circuit breaker 
-	
-end
+	cbreaker.run do
+		#Code you want to wrap under circuit breaker 
+	end
 
 Here in data_store you will have to provide the redis connection.
 
